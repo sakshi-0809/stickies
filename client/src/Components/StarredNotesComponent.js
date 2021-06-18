@@ -24,18 +24,29 @@ function Sidebar(props) {
             _id: authContext.user._id
         }
 
-        axios.post("/sendmail", data);
+        axios.post("/sendmail", data).then(data => {
+            console.log("Email Sent");
+            props.setEmailSent(true);
+
+            setTimeout(() => {
+                props.setEmailSent(false);
+            }, 3000);
+        });
     }
 
     return (
-        <div className="sidebar">
-            <div className="sidebar-heading">Stickies</div>
-            <div className="back-button-div">
-                <i className="material-icons back-button" onClick={handleBack}>arrow_back</i>
+        <>
+
+            <div className="sidebar">
+
+                <div className="sidebar-heading">Stickies</div>
+                <div className="back-button-div">
+                    <i className="material-icons back-button" onClick={handleBack}>arrow_back</i>
+                </div>
+                <i className="material-icons email-button" onClick={handleEmail}>email</i>
+                <i className="material-icons logout-button" onClick={handleLogout}>exit_to_app</i>
             </div>
-            <i className="material-icons email-button" onClick={handleEmail}>email</i>
-            <i className="material-icons logout-button" onClick={handleLogout}>exit_to_app</i>
-        </div>
+        </>
     )
 }
 
@@ -135,7 +146,7 @@ function StarredNotes(props) {
     const [keyword, setKeyword] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [resultMessage, setResultMessage] = useState('');
-
+    const [emailSent, setEmailSent] = useState(false);
     useEffect(() => {
         setNotes(props.notes);
     }, [props.notes])
@@ -168,7 +179,8 @@ function StarredNotes(props) {
 
     return (
         <div>
-            <Sidebar history={props.history} notes={notes} />
+            <div className="mail-success-container"><div className={emailSent ? "mail-success mail-show" : "mail-success"} >Mail Successfully Sent</div></div>
+            <Sidebar history={props.history} notes={notes} setEmailSent={setEmailSent} />
             <div className="notes-heading">
                 <form onSubmit={handleSearch} className="search-icon">
                     <input type='text' placeholder='Search' value={keyword} onChange={(e) => { setKeyword(e.target.value) }} />
@@ -181,7 +193,7 @@ function StarredNotes(props) {
             <div className="notes-container">
                 <RenderNote notes={notes} searchResults={searchResults} userId={authContext.user._id} />
             </div>
-        </div>
+        </div >
     )
 }
 

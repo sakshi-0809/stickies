@@ -1,4 +1,29 @@
 //Login and Register Page
+.mail-success-container {
+    width:100%;
+    position: fixed;
+    display:flex;
+    justify-content: center;
+}
+.mail-success {
+    top: -55px;
+    position: fixed;
+    margin-top: 10px;
+    width: fit-content;
+    z-index: 10;
+    padding: 10px;
+    font-weight: 600;
+    border-radius: 10px;
+    background-color:#02a345;
+    color: #ffff;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0 , .1);
+    transition: all cubic-bezier(.09,.51,.93,1.33) 0.5s;
+}
+
+.mail-show {
+    top: 0;
+}
+
 
 .form-page {
     display: flex;
@@ -583,3 +608,4 @@ a:hover{
         }
     }
 }
+

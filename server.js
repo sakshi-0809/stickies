@@ -68,8 +68,8 @@ app.post('/sendmail', async (req, res) => {
             let transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                    user: "stickies.notesapp@gmail.com",
-                    pass: "S@kshiStickies"
+                    user: process.env.EMAIL,
+                    pass: process.env.EMAIL_PASSWORD
                 }
             });
 
@@ -226,12 +226,6 @@ function escapeRegex(text) {
 };
 
 if (process.env.NODE_ENV === 'production') {
-    //app.use(express.static('client/build'));
-
-    // app.get('*', (req, res) => {
-    //     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-    // });
-
     app.use(express.static(path.join(__dirname, 'client', 'build')));
 
     app.get('/*', function (req, res) {
