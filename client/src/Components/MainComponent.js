@@ -27,7 +27,7 @@ function Main(props) {
         if (authContext.isAuthenticated) {
             props.history.push('/notes');
         }
-    }, [authContext.user.notes])
+    }, [authContext.user.notes, authContext.isAuthenticated, props.history])
 
     return (
         <Switch>
