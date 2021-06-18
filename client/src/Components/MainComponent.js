@@ -18,12 +18,15 @@ const PrivateRoute = ({ component: Component, notes, setNotes, ...rest }) => {
     )
 }
 
-function Main() {
+function Main(props) {
     const authContext = useContext(AuthContext);
     const [notes, setNotes] = useState([{}]);
 
     useEffect(() => {
         setNotes(authContext.user.notes);
+        if (authContext.isAuthenticated) {
+            props.history.push('/notes');
+        }
     }, [authContext.user.notes])
 
     return (
@@ -38,6 +41,7 @@ function Main() {
             <Route path='/starred' >
                 <StarredNotes notes={notes} setNotes={setNotes} isAuthenticated={authContext.isAuthenticated} />
             </Route>
+            <Redirect to='/' />
         </Switch>
     )
 }
