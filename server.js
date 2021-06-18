@@ -227,20 +227,8 @@ function escapeRegex(text) {
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
 
-    let protected = ['transformed.js', 'main.css', 'favicon.ico']
-
-    app.get("*", (req, res) => {
-
-        let path = req.params['0'].substring(1);
-        console.log(path);
-
-        if (protected.includes(path)) {
-            // Return the actual file
-            res.sendFile(`client/build/${path}`);
-        } else {
-            // Otherwise, redirect to /build/index.html
-            res.sendFile(`client/build/index.html`);
-        }
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
 }
 
