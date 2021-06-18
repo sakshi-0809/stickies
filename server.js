@@ -13,6 +13,7 @@ const JWT = require('jsonwebtoken');
 const passportConfig = require('./passportConfig');
 const metaphone = require('metaphone');
 const nodemailer = require("nodemailer");
+const path = require('path');
 
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/stickies', { useNewUrlParser: true });
