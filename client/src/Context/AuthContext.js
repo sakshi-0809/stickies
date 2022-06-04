@@ -4,6 +4,8 @@ import AuthService from '../Services/AuthService';
 
 export const AuthContext = createContext();
 
+// center loader
+
 export default ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
